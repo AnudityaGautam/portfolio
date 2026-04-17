@@ -24,7 +24,6 @@
             padding: 0 1.5rem;
         }
 
-        /* Header */
         header {
             background: white;
             border-bottom: 1px solid #e5e7eb;
@@ -68,7 +67,6 @@
             color: #2563eb;
         }
 
-        /* Hero */
         .hero {
             padding: 4rem 0 2rem;
         }
@@ -113,7 +111,6 @@
             font-weight: 500;
         }
 
-        /* Projects */
         .projects-section {
             padding: 3rem 0 5rem;
         }
@@ -182,7 +179,6 @@
             background: #e0e7ff;
         }
 
-        /* Footer & Contact */
         footer {
             border-top: 1px solid #e5e7eb;
             padding: 2rem 0;
@@ -255,7 +251,6 @@
 
 <main>
     <div class="container">
-        <!-- Hero Section -->
         <section id="home" class="hero">
             <div class="badge">B.Tech Computer Science & Engineering</div>
             <h1>Anuditya Gautam</h1>
@@ -271,12 +266,9 @@
             </div>
         </section>
 
-        <!-- Projects Section (dynamic) -->
         <section id="projects" class="projects-section">
             <h2 class="section-title">Live Projects</h2>
-            <div id="projects-list" class="projects-grid">
-                <!-- JS will inject projects here -->
-            </div>
+            <div id="projects-list" class="projects-grid"></div>
         </section>
     </div>
 </main>
@@ -295,9 +287,6 @@
 </footer>
 
 <script>
-    // ==============================================
-    // YOUR 5 REAL PROJECTS (UPDATED CALCULATOR LINK)
-    // ==============================================
     const projectsData = [
         {
             name: "Musicly",
@@ -315,9 +304,9 @@
             link: "https://flappybirds-ten.vercel.app"
         },
         {
-            name: "Advanced Calculator",
-            desc: "Scientific calculator with memory, history, dark mode, and keyboard support",
-            link: "https://portfolio-neon-eight-nusdnxztl5.vercel.app"
+            name: "Calculator",
+            desc: "Basic arithmetic calculator",
+            link: "https://calculator-tau-hazel.vercel.app"
         },
         {
             name: "Cafe Online Menu",
@@ -329,7 +318,6 @@
     function renderProjects() {
         const container = document.getElementById('projects-list');
         if (!container) return;
-
         let html = '';
         for (let proj of projectsData) {
             html += `
@@ -355,7 +343,6 @@
         });
     }
 
-    // Resume download placeholder
     document.getElementById('resumeBtn')?.addEventListener('click', function(e) {
         e.preventDefault();
         alert("Upload your resume PDF and update the href in the resume button.");
