@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anuditya Gautam | Portfolio</title>
+    <title>Anuditya Gautam | CSE Portfolio</title>
     <style>
         * {
             margin: 0;
@@ -113,7 +113,7 @@
             font-weight: 500;
         }
 
-        /* Projects section */
+        /* Projects */
         .projects-section {
             padding: 3rem 0 5rem;
         }
@@ -150,28 +150,39 @@
             box-shadow: 0 4px 6px -2px rgba(0,0,0,0.05);
         }
 
+        .project-info {
+            flex: 1;
+        }
+
         .project-name {
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 700;
             color: #111827;
+        }
+
+        .project-desc {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-top: 0.2rem;
         }
 
         .project-link {
             background: #f3f4f6;
-            padding: 0.4rem 1rem;
+            padding: 0.5rem 1.2rem;
             border-radius: 2rem;
             text-decoration: none;
             color: #2563eb;
             font-size: 0.85rem;
             font-weight: 500;
             transition: background 0.2s;
+            white-space: nowrap;
         }
 
         .project-link:hover {
             background: #e0e7ff;
         }
 
-        /* Footer / Contact */
+        /* Footer & Contact */
         footer {
             border-top: 1px solid #e5e7eb;
             padding: 2rem 0;
@@ -185,13 +196,29 @@
             justify-content: center;
             gap: 2rem;
             flex-wrap: wrap;
-            margin-top: 1rem;
+            margin: 1rem 0;
         }
 
         .contact-info a {
             text-decoration: none;
             color: #2563eb;
             font-weight: 500;
+        }
+
+        .resume-btn {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            transition: background 0.2s;
+        }
+
+        .resume-btn:hover {
+            background: #1d4ed8;
         }
 
         @media (max-width: 640px) {
@@ -201,6 +228,9 @@
             .project-row {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+            .project-link {
+                align-self: flex-start;
             }
             .nav-links {
                 gap: 1rem;
@@ -227,24 +257,25 @@
     <div class="container">
         <!-- Hero Section -->
         <section id="home" class="hero">
-            <div class="badge">B.Tech CSE Student</div>
+            <div class="badge">B.Tech Computer Science & Engineering</div>
             <h1>Anuditya Gautam</h1>
-            <p>I build websites, experiment with prompt engineering, and write code in C, Python, and HTML. I understand how hosting works and have deployed multiple real projects.</p>
+            <p>I build web apps, games, and tools. Skilled in <strong>C, Python, HTML, Prompt Engineering, and Web Hosting (Vercel)</strong>. I've deployed multiple live projects – see them below.</p>
             <div class="skills">
                 <span class="skill">C</span>
                 <span class="skill">Python</span>
                 <span class="skill">HTML/CSS</span>
                 <span class="skill">Prompt Engineering</span>
                 <span class="skill">Web Hosting</span>
+                <span class="skill">Vercel</span>
                 <span class="skill">Git</span>
             </div>
         </section>
 
-        <!-- Projects Section (dynamic from JS) -->
+        <!-- Projects Section (dynamic) -->
         <section id="projects" class="projects-section">
-            <h2 class="section-title">Real Projects</h2>
+            <h2 class="section-title">Live Projects</h2>
             <div id="projects-list" class="projects-grid">
-                <!-- Projects will be injected here by JavaScript -->
+                <!-- JS will inject projects here -->
             </div>
         </section>
     </div>
@@ -252,52 +283,68 @@
 
 <footer id="contact">
     <div class="container">
-        <p>📫 Let's connect — open for internships & collaborations</p>
+        <p>📫 Open for internships and collaboration</p>
         <div class="contact-info">
             <a href="mailto:anuditya@example.com">anuditya@example.com</a>
             <a href="https://github.com/yourusername" target="_blank">GitHub</a>
             <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
         </div>
+        <a href="#" class="resume-btn" id="resumeBtn">📄 Download Resume (PDF)</a>
         <p style="margin-top: 1.5rem;">© 2025 Anuditya Gautam</p>
     </div>
 </footer>
 
 <script>
     // ==============================================
-    // ADD YOUR REAL PROJECTS HERE (name + link)
-    // Just edit this array – no fake entries.
+    // YOUR 5 REAL PROJECTS (edit this array to update)
     // ==============================================
     const projectsData = [
-        { name: "Personal Portfolio Website", link: "https://your-live-link.com/portfolio" },
-        { name: "Weather App using Python & API", link: "https://your-weather-app.com" },
-        { name: "Prompt Engineering Playground", link: "https://your-prompt-project.com" },
-        { name: "Task Manager (C + CLI)", link: "https://github.com/yourusername/task-manager" },
-        { name: "Hosted Static Site Generator", link: "https://your-site-generator.com" }
+        {
+            name: "Musicly",
+            desc: "Beta version of Spotify – stream songs",
+            link: "https://musicly-ruby.vercel.app"
+        },
+        {
+            name: "Weather Forecaster",
+            desc: "Real‑time weather forecasting",
+            link: "https://weather-forecaster-12qt.vercel.app"
+        },
+        {
+            name: "Flappy Birds",
+            desc: "Arcade game – bird dodges obstacles by jumping",
+            link: "https://flappybirds-ten.vercel.app"
+        },
+        {
+            name: "Calculator",
+            desc: "Basic arithmetic calculator",
+            link: "https://calculator-tau-hazel.vercel.app"
+        },
+        {
+            name: "Cafe Online Menu",
+            desc: "QR code ordering, online payment, dine‑in option",
+            link: "https://menu-first-eight.vercel.app"
+        }
     ];
 
-    // Render projects
     function renderProjects() {
         const container = document.getElementById('projects-list');
         if (!container) return;
-
-        if (projectsData.length === 0) {
-            container.innerHTML = '<p style="color: #6b7280;">No projects added yet. Check back soon!</p>';
-            return;
-        }
 
         let html = '';
         for (let proj of projectsData) {
             html += `
                 <div class="project-row">
-                    <span class="project-name">📁 ${escapeHtml(proj.name)}</span>
-                    <a href="${escapeHtml(proj.link)}" target="_blank" rel="noopener noreferrer" class="project-link">View Project →</a>
+                    <div class="project-info">
+                        <div class="project-name">📁 ${escapeHtml(proj.name)}</div>
+                        <div class="project-desc">${escapeHtml(proj.desc)}</div>
+                    </div>
+                    <a href="${escapeHtml(proj.link)}" target="_blank" rel="noopener noreferrer" class="project-link">Live Project →</a>
                 </div>
             `;
         }
         container.innerHTML = html;
     }
 
-    // simple helper to avoid XSS
     function escapeHtml(str) {
         if (!str) return '';
         return str.replace(/[&<>]/g, function(m) {
@@ -308,7 +355,13 @@
         });
     }
 
-    // Load projects when page loads
+    // Optional: Resume download (replace with your actual PDF link)
+    document.getElementById('resumeBtn')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        alert("Replace this alert with your actual resume PDF link.\nUpload your resume and update the 'href' in the <a> tag.");
+        // Example: window.open('resume.pdf', '_blank');
+    });
+
     document.addEventListener('DOMContentLoaded', renderProjects);
 </script>
 
