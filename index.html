@@ -2,368 +2,568 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anuditya Gautam | CSE Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Advanced Calculator | Anuditya Gautam</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            user-select: none;
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-            background: #f9fafb;
-            color: #111827;
-            line-height: 1.5;
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(145deg, #e0eafc 0%, #cfdef3 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            transition: background 0.3s;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
+        body.dark {
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
         }
 
-        /* Header */
-        header {
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+        .calculator {
+            max-width: 550px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            transition: background 0.3s;
         }
 
-        nav {
+        body.dark .calculator {
+            background: rgba(30, 30, 46, 0.95);
+            color: #f0f0f0;
+        }
+
+        /* Header with mode toggle */
+        .calc-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
-            flex-wrap: wrap;
-            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: #f8f9fc;
+            border-bottom: 1px solid #e2e8f0;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
+        body.dark .calc-header {
+            background: #1e1e2e;
+            border-bottom-color: #2d2d44;
+        }
+
+        .calc-header h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
             background: linear-gradient(135deg, #2563eb, #7c3aed);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #4b5563;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: #2563eb;
-        }
-
-        /* Hero */
-        .hero {
-            padding: 4rem 0 2rem;
-        }
-
-        .hero h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-
-        .hero .badge {
-            display: inline-block;
-            background: #e0e7ff;
-            color: #1e40af;
-            padding: 0.2rem 0.8rem;
+        .theme-toggle {
+            background: #e2e8f0;
+            border: none;
             border-radius: 2rem;
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 1rem;
+            padding: 0.3rem 0.8rem;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
         }
 
-        .hero p {
-            font-size: 1.1rem;
-            color: #4b5563;
-            max-width: 650px;
-            margin: 1rem 0;
+        body.dark .theme-toggle {
+            background: #2d2d44;
+            color: #ffd966;
         }
 
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-            margin-top: 1.5rem;
+        /* Display */
+        .display {
+            padding: 1.5rem;
+            text-align: right;
         }
 
-        .skill {
-            background: white;
-            border: 1px solid #d1d5db;
-            padding: 0.3rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.85rem;
-            font-weight: 500;
+        #expression {
+            font-size: 1.2rem;
+            color: #64748b;
+            min-height: 2rem;
+            word-wrap: break-word;
+            word-break: break-all;
         }
 
-        /* Projects */
-        .projects-section {
-            padding: 3rem 0 5rem;
+        body.dark #expression {
+            color: #a0a0c0;
         }
 
-        .section-title {
-            font-size: 2rem;
+        #result {
+            font-size: 3rem;
             font-weight: 700;
-            margin-bottom: 2rem;
-            border-left: 5px solid #2563eb;
-            padding-left: 1rem;
+            color: #0f172a;
+            word-wrap: break-word;
+            word-break: break-all;
+            line-height: 1.2;
         }
 
-        .projects-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        body.dark #result {
+            color: #f0f0f0;
         }
 
-        .project-row {
-            background: white;
-            border: 1px solid #e5e7eb;
+        /* History panel */
+        .history-panel {
+            background: #f1f5f9;
+            margin: 0 1rem 1rem;
             border-radius: 1rem;
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            transition: all 0.2s;
+            padding: 0.5rem;
+            max-height: 120px;
+            overflow-y: auto;
+            font-size: 0.8rem;
         }
 
-        .project-row:hover {
-            border-color: #2563eb;
-            box-shadow: 0 4px 6px -2px rgba(0,0,0,0.05);
+        body.dark .history-panel {
+            background: #25253a;
         }
 
-        .project-info {
-            flex: 1;
+        .history-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            padding-left: 0.5rem;
+            color: #475569;
         }
 
-        .project-name {
+        body.dark .history-title {
+            color: #b0b0d0;
+        }
+
+        #historyList {
+            list-style: none;
+            padding-left: 0.5rem;
+        }
+
+        #historyList li {
+            color: #334155;
+            padding: 0.2rem 0;
+            border-bottom: 1px solid #cbd5e1;
+            font-family: monospace;
+        }
+
+        body.dark #historyList li {
+            color: #cbd5e6;
+            border-bottom-color: #3a3a55;
+        }
+
+        /* Buttons grid */
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.6rem;
+            padding: 1.5rem;
+        }
+
+        button {
+            background: #f1f5f9;
+            border: none;
+            border-radius: 1rem;
+            padding: 1rem 0;
             font-size: 1.1rem;
-            font-weight: 700;
-            color: #111827;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            color: #0f172a;
         }
 
-        .project-desc {
-            font-size: 0.85rem;
-            color: #6b7280;
-            margin-top: 0.2rem;
+        body.dark button {
+            background: #2d2d44;
+            color: #e2e8f0;
         }
 
-        .project-link {
-            background: #f3f4f6;
-            padding: 0.5rem 1.2rem;
-            border-radius: 2rem;
-            text-decoration: none;
+        button:active {
+            transform: scale(0.96);
+        }
+
+        .btn-func {
+            background: #e2e8f0;
             color: #2563eb;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: background 0.2s;
-            white-space: nowrap;
         }
 
-        .project-link:hover {
-            background: #e0e7ff;
+        body.dark .btn-func {
+            background: #3a3a55;
+            color: #7c9bff;
         }
 
-        /* Footer & Contact */
-        footer {
-            border-top: 1px solid #e5e7eb;
-            padding: 2rem 0;
-            text-align: center;
-            color: #6b7280;
-            font-size: 0.9rem;
-        }
-
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin: 1rem 0;
-        }
-
-        .contact-info a {
-            text-decoration: none;
-            color: #2563eb;
-            font-weight: 500;
-        }
-
-        .resume-btn {
-            display: inline-block;
+        .btn-op {
             background: #2563eb;
             color: white;
-            padding: 0.5rem 1.2rem;
-            border-radius: 2rem;
-            text-decoration: none;
-            font-weight: 500;
-            margin-top: 0.5rem;
-            transition: background 0.2s;
         }
 
-        .resume-btn:hover {
-            background: #1d4ed8;
+        body.dark .btn-op {
+            background: #3b82f6;
         }
 
-        @media (max-width: 640px) {
-            .hero h1 {
+        .btn-equal {
+            background: #7c3aed;
+            color: white;
+            grid-column: span 1;
+        }
+
+        .btn-clear {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-memory {
+            background: #10b981;
+            color: white;
+        }
+
+        @media (max-width: 500px) {
+            .buttons {
+                gap: 0.4rem;
+                padding: 1rem;
+            }
+            button {
+                padding: 0.8rem 0;
+                font-size: 0.9rem;
+            }
+            #result {
                 font-size: 2rem;
-            }
-            .project-row {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .project-link {
-                align-self: flex-start;
-            }
-            .nav-links {
-                gap: 1rem;
             }
         }
     </style>
 </head>
 <body>
-
-<header>
-    <div class="container">
-        <nav>
-            <div class="logo">Anuditya.dev</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+<div class="calculator">
+    <div class="calc-header">
+        <h2>🧮 SciCalc Pro</h2>
+        <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
     </div>
-</header>
 
-<main>
-    <div class="container">
-        <!-- Hero Section -->
-        <section id="home" class="hero">
-            <div class="badge">B.Tech Computer Science & Engineering</div>
-            <h1>Anuditya Gautam</h1>
-            <p>I build web apps, games, and tools. Skilled in <strong>C, Python, HTML, Prompt Engineering, and Web Hosting (Vercel)</strong>. I've deployed multiple live projects – see them below.</p>
-            <div class="skills">
-                <span class="skill">C</span>
-                <span class="skill">Python</span>
-                <span class="skill">HTML/CSS</span>
-                <span class="skill">Prompt Engineering</span>
-                <span class="skill">Web Hosting</span>
-                <span class="skill">Vercel</span>
-                <span class="skill">Git</span>
-            </div>
-        </section>
-
-        <!-- Projects Section (dynamic) -->
-        <section id="projects" class="projects-section">
-            <h2 class="section-title">Live Projects</h2>
-            <div id="projects-list" class="projects-grid">
-                <!-- JS will inject projects here -->
-            </div>
-        </section>
+    <div class="display">
+        <div id="expression"></div>
+        <div id="result">0</div>
     </div>
-</main>
 
-<footer id="contact">
-    <div class="container">
-        <p>📫 Open for internships and collaboration</p>
-        <div class="contact-info">
-            <a href="mailto:anuditya@example.com">anuditya@example.com</a>
-            <a href="https://github.com/yourusername" target="_blank">GitHub</a>
-            <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
-        </div>
-        <a href="#" class="resume-btn" id="resumeBtn">📄 Download Resume (PDF)</a>
-        <p style="margin-top: 1.5rem;">© 2025 Anuditya Gautam</p>
+    <div class="history-panel">
+        <div class="history-title">📜 History (last 10)</div>
+        <ul id="historyList"></ul>
     </div>
-</footer>
+
+    <div class="buttons">
+        <!-- Row 1: Memory & special -->
+        <button class="btn-memory" data-action="memoryClear">MC</button>
+        <button class="btn-memory" data-action="memoryRecall">MR</button>
+        <button class="btn-memory" data-action="memoryAdd">M+</button>
+        <button class="btn-memory" data-action="memorySubtract">M-</button>
+        <button class="btn-clear" data-action="clearAll">AC</button>
+
+        <!-- Row 2 -->
+        <button class="btn-func" data-func="sin">sin</button>
+        <button class="btn-func" data-func="cos">cos</button>
+        <button class="btn-func" data-func="tan">tan</button>
+        <button class="btn-func" data-func="ln">ln</button>
+        <button class="btn-func" data-func="log">log</button>
+
+        <!-- Row 3 -->
+        <button class="btn-func" data-func="sqrt">√</button>
+        <button class="btn-func" data-func="square">x²</button>
+        <button class="btn-func" data-func="power">xʸ</button>
+        <button class="btn-func" data-const="pi">π</button>
+        <button class="btn-func" data-const="e">e</button>
+
+        <!-- Row 4 -->
+        <button data-digit="7">7</button>
+        <button data-digit="8">8</button>
+        <button data-digit="9">9</button>
+        <button class="btn-op" data-op="/">÷</button>
+        <button data-action="backspace">⌫</button>
+
+        <!-- Row 5 -->
+        <button data-digit="4">4</button>
+        <button data-digit="5">5</button>
+        <button data-digit="6">6</button>
+        <button class="btn-op" data-op="*">×</button>
+        <button data-action="clearEntry">CE</button>
+
+        <!-- Row 6 -->
+        <button data-digit="1">1</button>
+        <button data-digit="2">2</button>
+        <button data-digit="3">3</button>
+        <button class="btn-op" data-op="-">-</button>
+        <button data-digit="0">0</button>
+
+        <!-- Row 7 -->
+        <button data-digit=".">.</button>
+        <button data-digit="(">(</button>
+        <button data-digit=")">)</button>
+        <button class="btn-op" data-op="+">+</button>
+        <button class="btn-equal" data-action="equal">=</button>
+    </div>
+</div>
 
 <script>
-    // ==============================================
-    // YOUR 5 REAL PROJECTS (edit this array to update)
-    // ==============================================
-    const projectsData = [
-        {
-            name: "Musicly",
-            desc: "Beta version of Spotify – stream songs",
-            link: "https://musicly-ruby.vercel.app"
-        },
-        {
-            name: "Weather Forecaster",
-            desc: "Real‑time weather forecasting",
-            link: "https://weather-forecaster-12qt.vercel.app"
-        },
-        {
-            name: "Flappy Birds",
-            desc: "Arcade game – bird dodges obstacles by jumping",
-            link: "https://flappybirds-ten.vercel.app"
-        },
-        {
-            name: "Calculator",
-            desc: "Basic arithmetic calculator",
-            link: "https://calculator-tau-hazel.vercel.app"
-        },
-        {
-            name: "Cafe Online Menu",
-            desc: "QR code ordering, online payment, dine‑in option",
-            link: "https://menu-first-eight.vercel.app"
-        }
-    ];
+    // ------------------- DOM Elements -------------------
+    const expressionDiv = document.getElementById('expression');
+    const resultDiv = document.getElementById('result');
+    const historyList = document.getElementById('historyList');
 
-    function renderProjects() {
-        const container = document.getElementById('projects-list');
-        if (!container) return;
+    // State
+    let currentExpression = "";   // what user sees (with operators)
+    let lastResult = null;
+    let memory = 0;
+    let history = [];   // array of strings like "5+3=8"
 
-        let html = '';
-        for (let proj of projectsData) {
-            html += `
-                <div class="project-row">
-                    <div class="project-info">
-                        <div class="project-name">📁 ${escapeHtml(proj.name)}</div>
-                        <div class="project-desc">${escapeHtml(proj.desc)}</div>
-                    </div>
-                    <a href="${escapeHtml(proj.link)}" target="_blank" rel="noopener noreferrer" class="project-link">Live Project →</a>
-                </div>
-            `;
+    // Helper: update display
+    function updateDisplay() {
+        expressionDiv.innerText = currentExpression || "";
+        if (currentExpression === "") {
+            resultDiv.innerText = lastResult !== null ? lastResult : "0";
+        } else {
+            // try to evaluate dynamically for preview? Not needed, but we can show last result if any
+            if (lastResult !== null && currentExpression === "") {
+                resultDiv.innerText = lastResult;
+            } else {
+                resultDiv.innerText = "?";
+            }
         }
-        container.innerHTML = html;
     }
 
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
+    // Evaluate expression safely
+    function evaluateExpression(expr) {
+        // Replace display operators with JS operators
+        let jsExpr = expr.replace(/×/g, '*').replace(/÷/g, '/');
+        try {
+            // Use Function instead of eval for slightly better safety (still eval-like but fine for calculator)
+            const result = Function('"use strict";return (' + jsExpr + ')')();
+            if (isNaN(result) || !isFinite(result)) throw new Error("Invalid");
+            return parseFloat(result.toFixed(10));
+        } catch (e) {
+            return null;
+        }
     }
 
-    // Optional: Resume download (replace with your actual PDF link)
-    document.getElementById('resumeBtn')?.addEventListener('click', function(e) {
-        e.preventDefault();
-        alert("Replace this alert with your actual resume PDF link.\nUpload your resume and update the 'href' in the <a> tag.");
-        // Example: window.open('resume.pdf', '_blank');
+    // Add to history
+    function addToHistory(expr, res) {
+        history.unshift(`${expr} = ${res}`);
+        if (history.length > 10) history.pop();
+        renderHistory();
+    }
+
+    function renderHistory() {
+        historyList.innerHTML = "";
+        for (let entry of history) {
+            const li = document.createElement('li');
+            li.textContent = entry;
+            historyList.appendChild(li);
+        }
+    }
+
+    // Process final equals
+    function computeResult() {
+        if (currentExpression.trim() === "") {
+            if (lastResult !== null) {
+                currentExpression = lastResult.toString();
+                updateDisplay();
+            }
+            return;
+        }
+        let expr = currentExpression;
+        let res = evaluateExpression(expr);
+        if (res !== null) {
+            lastResult = res;
+            addToHistory(expr, res);
+            currentExpression = res.toString();
+            updateDisplay();
+        } else {
+            resultDiv.innerText = "Error";
+            setTimeout(() => {
+                if (currentExpression === "") resultDiv.innerText = lastResult || "0";
+                else updateDisplay();
+            }, 1000);
+        }
+    }
+
+    // Handle functions (sin, cos, etc.)
+    function applyFunction(funcName) {
+        let currentVal = parseFloat(currentExpression);
+        if (isNaN(currentVal) && currentExpression !== "") {
+            // try to evaluate current expression first
+            let evalTry = evaluateExpression(currentExpression);
+            if (evalTry !== null) currentVal = evalTry;
+            else currentVal = NaN;
+        }
+        if (isNaN(currentVal)) {
+            resultDiv.innerText = "Error";
+            return;
+        }
+        let result;
+        switch (funcName) {
+            case 'sin': result = Math.sin(currentVal); break;
+            case 'cos': result = Math.cos(currentVal); break;
+            case 'tan': result = Math.tan(currentVal); break;
+            case 'ln': result = Math.log(currentVal); break;
+            case 'log': result = Math.log10(currentVal); break;
+            case 'sqrt': result = Math.sqrt(currentVal); break;
+            case 'square': result = currentVal * currentVal; break;
+            default: return;
+        }
+        if (isNaN(result) || !isFinite(result)) {
+            resultDiv.innerText = "Error";
+            return;
+        }
+        currentExpression = result.toString();
+        lastResult = result;
+        updateDisplay();
+    }
+
+    // Power (xʸ) - prompt for exponent
+    function applyPower() {
+        let base = parseFloat(currentExpression);
+        if (isNaN(base) && currentExpression !== "") {
+            let evalTry = evaluateExpression(currentExpression);
+            if (evalTry !== null) base = evalTry;
+            else base = NaN;
+        }
+        if (isNaN(base)) {
+            resultDiv.innerText = "Error";
+            return;
+        }
+        let exponent = prompt("Enter exponent:", "2");
+        if (exponent === null) return;
+        let expNum = parseFloat(exponent);
+        if (isNaN(expNum)) {
+            resultDiv.innerText = "Error";
+            return;
+        }
+        let result = Math.pow(base, expNum);
+        currentExpression = result.toString();
+        lastResult = result;
+        updateDisplay();
+    }
+
+    // Memory functions
+    function memoryClear() { memory = 0; }
+    function memoryRecall() {
+        currentExpression = memory.toString();
+        updateDisplay();
+    }
+    function memoryAdd() {
+        let val = parseFloat(currentExpression);
+        if (isNaN(val) && currentExpression !== "") {
+            let evalTry = evaluateExpression(currentExpression);
+            if (evalTry !== null) val = evalTry;
+            else val = 0;
+        }
+        if (!isNaN(val)) memory += val;
+    }
+    function memorySubtract() {
+        let val = parseFloat(currentExpression);
+        if (isNaN(val) && currentExpression !== "") {
+            let evalTry = evaluateExpression(currentExpression);
+            if (evalTry !== null) val = evalTry;
+            else val = 0;
+        }
+        if (!isNaN(val)) memory -= val;
+    }
+
+    // Button handlers
+    function handleDigit(digit) {
+        currentExpression += digit;
+        updateDisplay();
+    }
+
+    function handleOperator(op) {
+        if (currentExpression === "" && lastResult !== null) {
+            currentExpression = lastResult.toString() + op;
+        } else {
+            currentExpression += op;
+        }
+        updateDisplay();
+    }
+
+    function clearAll() {
+        currentExpression = "";
+        lastResult = null;
+        updateDisplay();
+    }
+
+    function clearEntry() {
+        currentExpression = "";
+        updateDisplay();
+    }
+
+    function backspace() {
+        currentExpression = currentExpression.slice(0, -1);
+        updateDisplay();
+    }
+
+    function addConstant(constName) {
+        if (constName === 'pi') currentExpression += Math.PI.toString();
+        else if (constName === 'e') currentExpression += Math.E.toString();
+        updateDisplay();
+    }
+
+    // Keyboard support
+    window.addEventListener('keydown', (e) => {
+        const key = e.key;
+        if (!isNaN(key) || key === '.') {
+            handleDigit(key);
+        } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+            let op = key;
+            if (op === '*') op = '×';
+            if (op === '/') op = '÷';
+            handleOperator(op);
+        } else if (key === 'Enter' || key === '=') {
+            e.preventDefault();
+            computeResult();
+        } else if (key === 'Escape') {
+            clearAll();
+        } else if (key === 'Backspace') {
+            backspace();
+        } else if (key === '(' || key === ')') {
+            handleDigit(key);
+        }
     });
 
-    document.addEventListener('DOMContentLoaded', renderProjects);
-</script>
+    // Event binding
+    document.querySelectorAll('.buttons button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (btn.hasAttribute('data-digit')) {
+                handleDigit(btn.getAttribute('data-digit'));
+            } else if (btn.hasAttribute('data-op')) {
+                handleOperator(btn.getAttribute('data-op'));
+            } else if (btn.hasAttribute('data-action')) {
+                const action = btn.getAttribute('data-action');
+                if (action === 'equal') computeResult();
+                else if (action === 'clearAll') clearAll();
+                else if (action === 'clearEntry') clearEntry();
+                else if (action === 'backspace') backspace();
+                else if (action === 'memoryClear') memoryClear();
+                else if (action === 'memoryRecall') memoryRecall();
+                else if (action === 'memoryAdd') memoryAdd();
+                else if (action === 'memorySubtract') memorySubtract();
+            } else if (btn.hasAttribute('data-func')) {
+                const func = btn.getAttribute('data-func');
+                if (func === 'power') applyPower();
+                else applyFunction(func);
+            } else if (btn.hasAttribute('data-const')) {
+                addConstant(btn.getAttribute('data-const'));
+            }
+        });
+    });
 
+    // Dark/Light mode
+    const themeBtn = document.getElementById('themeToggle');
+    themeBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        themeBtn.innerText = document.body.classList.contains('dark') ? '☀️ Light' : '🌙 Dark';
+    });
+
+    // Initial update
+    updateDisplay();
+</script>
 </body>
 </html>
