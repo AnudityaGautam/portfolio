@@ -5,10 +5,16 @@ import Footer from './components/Footer'
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-subtle relative overflow-x-hidden">
+    // flex column + min height ensures footer stays at bottom
+    <div className="min-h-screen flex flex-col bg-gradient-subtle relative overflow-x-hidden">
       <Navigation />
-      <Hero />
-      <Projects />
+      
+      {/* flex-1 makes this section take all remaining space */}
+      <main className="flex-1">
+        <Hero />
+        <Projects />
+      </main>
+      
       <Footer />
     </div>
   )
