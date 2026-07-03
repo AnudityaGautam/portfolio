@@ -1,13 +1,408 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dev Portfolio</title>
-  </head>
-  <body>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+        /* ── Tailwind base + custom styles (no build needed) ── */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0f;
+            color: #f1f1f7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        .bg-gradient-subtle {
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(88, 50, 200, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(50, 120, 220, 0.08) 0%, transparent 50%),
+                #0a0a0f;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px) saturate(1.2);
+            -webkit-backdrop-filter: blur(16px) saturate(1.2);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .glass-strong {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px) saturate(1.4);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #a78bfa, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gradient-text-hero {
+            background: linear-gradient(135deg, #c4b5fd 0%, #818cf8 40%, #60a5fa 70%, #34d399 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #7c3aed, #3b82f6);
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.30);
+        }
+        .btn-gradient:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 32px rgba(124, 58, 237, 0.45);
+        }
+        .btn-gradient:active { transform: scale(0.97); }
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(124, 58, 237, 0.30);
+            box-shadow: 0 20px 60px rgba(124, 58, 237, 0.15);
+        }
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 4px 14px;
+            border-radius: 100px;
+            font-size: 0.70rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.70);
+            transition: all 0.3s ease;
+        }
+        .tech-badge:hover {
+            background: rgba(124, 58, 237, 0.15);
+            border-color: rgba(124, 58, 237, 0.25);
+            color: #fff;
+        }
+        .nav-link {
+            position: relative;
+            color: rgba(255, 255, 255, 0.60);
+            transition: color 0.3s ease;
+            font-weight: 500;
+            font-size: 0.90rem;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #7c3aed, #3b82f6);
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+        .nav-link:hover { color: #fff; }
+        .nav-link:hover::after { width: 100%; }
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.30;
+            pointer-events: none;
+        }
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: #7c3aed;
+            top: -120px;
+            right: -80px;
+            animation: floatOrb 12s ease-in-out infinite alternate;
+        }
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: #3b82f6;
+            bottom: -60px;
+            left: -60px;
+            animation: floatOrb 16s ease-in-out infinite alternate-reverse;
+        }
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: #34d399;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: floatOrb 20s ease-in-out infinite alternate;
+            opacity: 0.12;
+        }
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, -30px) scale(1.1); }
+        }
+        @media (max-width: 640px) {
+            .orb-1 { width: 200px; height: 200px; top: -60px; right: -40px; }
+            .orb-2 { width: 150px; height: 150px; bottom: -30px; left: -30px; }
+            .orb-3 { width: 120px; height: 120px; }
+        }
+        /* Ensure footer stays at bottom */
+        #root {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+    <!-- ─── Using Import Map for ES Modules ─── -->
+    <script type="importmap">
+        {
+            "imports": {
+                "react": "https://esm.sh/react@18.2.0",
+                "react-dom": "https://esm.sh/react-dom@18.2.0",
+                "framer-motion": "https://esm.sh/framer-motion@11.0.2"
+            }
+        }
+    </script>
+
+    <script type="module">
+        // ─── Imports ────────────────────────────
+        import React, { useState, useEffect } from 'react';
+        import ReactDOM from 'react-dom/client';
+        import { motion, AnimatePresence } from 'framer-motion';
+
+        // ─── Components ──────────────────────────
+
+        // Navigation
+        const Navigation = () => {
+            const [scrolled, setScrolled] = useState(false);
+            useEffect(() => {
+                const onScroll = () => setScrolled(window.scrollY > 40);
+                window.addEventListener('scroll', onScroll);
+                return () => window.removeEventListener('scroll', onScroll);
+            }, []);
+            const scrollTo = (id) => {
+                document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+            };
+            return (
+                <motion.nav
+                    initial={{ y: -20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.6 }}
+                    className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 transition-all duration-300 ${scrolled ? 'glass-strong shadow-lg shadow-black/30' : 'bg-transparent'
+                        }`}
+                >
+                    <div className="max-w-6xl mx-auto flex items-center justify-between">
+                        <span className="text-xl font-bold tracking-tight gradient-text">dev.</span>
+                        <div className="flex items-center gap-8">
+                            <button onClick={() => scrollTo('hero')} className="nav-link">Home</button>
+                            <button onClick={() => scrollTo('projects')} className="nav-link">Projects</button>
+                        </div>
+                    </div>
+                </motion.nav>
+            );
+        };
+
+        // Hero
+        const Hero = () => {
+            return (
+                <section id="hero" className="min-h-screen flex items-center justify-center px-6 pt-20 pb-16 relative overflow-hidden bg-gradient-subtle">
+                    <div className="orb orb-1" />
+                    <div className="orb orb-2" />
+                    <div className="orb orb-3" />
+                    <div className="max-w-5xl mx-auto text-center relative z-10">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                            className="inline-block glass px-5 py-2 rounded-full text-sm font-medium text-purple-300 border border-purple-500/20 mb-6"
+                        >
+                            ✦ Open to opportunities
+                        </motion.div>
+                        <motion.h1
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, delay: 0.1 }}
+                            className="text-5xl sm:text-7xl md:text-8xl font-extrabold leading-[1.05] tracking-tight mb-6"
+                        >
+                            <span className="gradient-text-hero">Crafting digital</span><br />
+                            <span className="text-white">experiences</span>
+                        </motion.h1>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                            className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-10"
+                        >
+                            Developer focused on building polished, performant web applications
+                            with modern tools and a keen eye for design.
+                        </motion.p>
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                        >
+                            <a href="#projects" className="btn-gradient inline-block px-10 py-4 rounded-full text-white font-semibold text-base tracking-wide">
+                                View Projects <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">→</span>
+                            </a>
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.6 }}
+                            className="mt-12 flex justify-center gap-6 text-sm text-gray-500 font-mono"
+                        >
+                            <span className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-green-400/60" />
+                                React · Vite
+                            </span>
+                            <span className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-blue-400/60" />
+                                Tailwind · Framer
+                            </span>
+                        </motion.div>
+                    </div>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1 }}
+                        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500 text-xs tracking-widest uppercase"
+                    >
+                        <span>Scroll</span>
+                        <svg className="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                        </svg>
+                    </motion.div>
+                </section>
+            );
+        };
+
+        // Project Card
+        const ProjectCard = ({ title, description, liveUrl, tech, index }) => {
+            return (
+                <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-60px' }}
+                    transition={{ duration: 0.6, delay: index * 0.15 }}
+                    className="project-card glass-strong rounded-2xl p-7 md:p-9 relative overflow-hidden group"
+                >
+                    <div className="absolute inset-0 pointer-events-none rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        style={{
+                            background: 'radial-gradient(circle at 30% 20%, rgba(124,58,237,0.12), transparent 70%)'
+                        }}
+                    />
+                    <div className="relative z-10">
+                        <div className="w-12 h-12 rounded-xl glass flex items-center justify-center text-2xl mb-5 border border-white/5">
+                            {index === 0 ? '📋' : '🧠'}
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">{title}</h3>
+                        <p className="text-gray-300 text-sm leading-relaxed mb-5 max-w-md">{description}</p>
+                        <div className="flex flex-wrap gap-2 mb-6">
+                            {tech.map((t, i) => (
+                                <span key={i} className="tech-badge">{t}</span>
+                            ))}
+                        </div>
+                        <a
+                            href={liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-500 hover:to-blue-400 transition-all duration-300 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40"
+                        >
+                            Live Demo
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </a>
+                    </div>
+                </motion.div>
+            );
+        };
+
+        // Projects
+        const Projects = () => {
+            const projects = [
+                {
+                    title: 'Restaurant QR Menu',
+                    description: 'QR code ordering, online payment, dine-in option — a seamless digital dining experience.',
+                    liveUrl: 'https://menu-first-eight.vercel.app',
+                    tech: ['React', 'Tailwind', 'QR Code', 'Vercel']
+                },
+                {
+                    title: 'AI Notes Generator',
+                    description: 'Generate smart AI-powered study notes instantly using modern web technologies.',
+                    liveUrl: 'https://ai-notes-generator-two.vercel.app',
+                    tech: ['React', 'AI', 'Tailwind', 'Vercel']
+                }
+            ];
+            return (
+                <section id="projects" className="py-24 px-6 bg-gradient-subtle">
+                    <div className="max-w-6xl mx-auto">
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="text-center mb-16"
+                        >
+                            <span className="inline-block text-sm font-medium text-purple-400 tracking-widest uppercase mb-3 glass px-5 py-1.5 rounded-full border border-purple-500/10">
+                                Featured Work
+                            </span>
+                            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
+                                <span className="gradient-text">Projects</span>
+                            </h2>
+                            <p className="text-gray-400 mt-3 max-w-xl mx-auto">
+                                A selection of my recent work — each built with care and modern tools.
+                            </p>
+                        </motion.div>
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {projects.map((p, i) => (
+                                <ProjectCard key={i} {...p} index={i} />
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // Footer
+        const Footer = () => {
+            const year = new Date().getFullYear();
+            return (
+                <footer className="py-6 px-6 border-t border-white/5 glass">
+                    <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <span className="text-sm text-gray-400">
+                            © {year} — Built with <span className="text-purple-400">React</span> &amp; <span className="text-blue-400">Tailwind</span>
+                        </span>
+                        <div className="flex items-center gap-6 text-sm">
+                            <a href="#hero" className="text-gray-500 hover:text-white transition-colors">Home</a>
+                            <a href="#projects" className="text-gray-500 hover:text-white transition-colors">Projects</a>
+                        </div>
+                    </div>
+                </footer>
+            );
+        };
+
+        // ─── App ──────────────────────────────────
+        const App = () => {
+            return (
+                <>
+                    <Navigation />
+                    <main>
+                        <Hero />
+                        <Projects />
+                    </main>
+                    <Footer />
+                </>
+            );
+        };
+
+        // ─── Mount ──────────────────────────────
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
 </html>
