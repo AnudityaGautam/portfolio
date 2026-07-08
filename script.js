@@ -105,16 +105,3 @@ AOS.init({
     once: true,
     offset: 50,
 });
-
-// ============================================================
-// 9. RESUME DOWNLOAD (placeholder)
-// ============================================================
-document.getElementById('downloadResumeBtn').addEventListener('click', (e) => {
-    e.preventDefault();
-    alert('Resume download will be available soon. Please check back later.');
-});
-
-document.getElementById('resumeDownloadContact').addEventListener('click', (e) => {
-    e.preventDefault();
-    alert('Resume download will be available soon. Please check back later.');
-});
