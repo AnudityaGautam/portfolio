@@ -3,406 +3,523 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dev Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <style>
-        /* ── Tailwind base + custom styles (no build needed) ── */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #0a0a0f;
-            color: #f1f1f7;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-        .bg-gradient-subtle {
-            background:
-                radial-gradient(ellipse at 20% 50%, rgba(88, 50, 200, 0.12) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(50, 120, 220, 0.08) 0%, transparent 50%),
-                #0a0a0f;
-        }
-        .glass {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(16px) saturate(1.2);
-            -webkit-backdrop-filter: blur(16px) saturate(1.2);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-        .glass-strong {
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(20px) saturate(1.4);
-            -webkit-backdrop-filter: blur(20px) saturate(1.4);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #a78bfa, #60a5fa, #34d399);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .gradient-text-hero {
-            background: linear-gradient(135deg, #c4b5fd 0%, #818cf8 40%, #60a5fa 70%, #34d399 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .btn-gradient {
-            background: linear-gradient(135deg, #7c3aed, #3b82f6);
-            border: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.30);
-        }
-        .btn-gradient:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 32px rgba(124, 58, 237, 0.45);
-        }
-        .btn-gradient:active { transform: scale(0.97); }
-        .project-card {
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .project-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(124, 58, 237, 0.30);
-            box-shadow: 0 20px 60px rgba(124, 58, 237, 0.15);
-        }
-        .tech-badge {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 4px 14px;
-            border-radius: 100px;
-            font-size: 0.70rem;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.70);
-            transition: all 0.3s ease;
-        }
-        .tech-badge:hover {
-            background: rgba(124, 58, 237, 0.15);
-            border-color: rgba(124, 58, 237, 0.25);
-            color: #fff;
-        }
-        .nav-link {
-            position: relative;
-            color: rgba(255, 255, 255, 0.60);
-            transition: color 0.3s ease;
-            font-weight: 500;
-            font-size: 0.90rem;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #7c3aed, #3b82f6);
-            transition: width 0.3s ease;
-            border-radius: 4px;
-        }
-        .nav-link:hover { color: #fff; }
-        .nav-link:hover::after { width: 100%; }
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.30;
-            pointer-events: none;
-        }
-        .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: #7c3aed;
-            top: -120px;
-            right: -80px;
-            animation: floatOrb 12s ease-in-out infinite alternate;
-        }
-        .orb-2 {
-            width: 300px;
-            height: 300px;
-            background: #3b82f6;
-            bottom: -60px;
-            left: -60px;
-            animation: floatOrb 16s ease-in-out infinite alternate-reverse;
-        }
-        .orb-3 {
-            width: 200px;
-            height: 200px;
-            background: #34d399;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: floatOrb 20s ease-in-out infinite alternate;
-            opacity: 0.12;
-        }
-        @keyframes floatOrb {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(40px, -30px) scale(1.1); }
-        }
-        @media (max-width: 640px) {
-            .orb-1 { width: 200px; height: 200px; top: -60px; right: -40px; }
-            .orb-2 { width: 150px; height: 150px; bottom: -30px; left: -30px; }
-            .orb-3 { width: 120px; height: 120px; }
-        }
-        /* Ensure footer stays at bottom */
-        #root {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        main {
-            flex: 1;
-        }
-    </style>
+    <title>Anuditya Gautam · Portfolio</title>
+
+    <!-- ===== Google Fonts: Poppins ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- ===== Font Awesome 6 (Free) ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- ===== AOS (Animate On Scroll) ===== -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+
+    <!-- ===== Custom CSS ===== -->
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <div id="root"></div>
+    <!-- ============================================================
+    LOADING SCREEN
+    ============================================================ -->
+    <div id="loader">
+        <div class="loader-ring"></div>
+        <p>Loading...</p>
+    </div>
 
-    <!-- ─── Using Import Map for ES Modules ─── -->
-    <script type="importmap">
-        {
-            "imports": {
-                "react": "https://esm.sh/react@18.2.0",
-                "react-dom": "https://esm.sh/react-dom@18.2.0",
-                "framer-motion": "https://esm.sh/framer-motion@11.0.2"
-            }
-        }
-    </script>
+    <!-- ============================================================
+    SCROLL PROGRESS BAR (top of page)
+    ============================================================ -->
+    <div id="scroll-progress"></div>
 
-    <script type="module">
-        // ─── Imports ────────────────────────────
-        import React, { useState, useEffect } from 'react';
-        import ReactDOM from 'react-dom/client';
-        import { motion, AnimatePresence } from 'framer-motion';
+    <!-- ============================================================
+    STICKY NAVBAR
+    ============================================================ -->
+    <header id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Anuditya.dev</a>
 
-        // ─── Components ──────────────────────────
+            <nav class="nav-links" id="navLinks">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#education">Education</a>
+                <a href="#contact">Contact</a>
+                <a href="#contact" class="nav-resume-btn">Resume</a>
+            </nav>
 
-        // Navigation
-        const Navigation = () => {
-            const [scrolled, setScrolled] = useState(false);
-            useEffect(() => {
-                const onScroll = () => setScrolled(window.scrollY > 40);
-                window.addEventListener('scroll', onScroll);
-                return () => window.removeEventListener('scroll', onScroll);
-            }, []);
-            const scrollTo = (id) => {
-                document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-            };
-            return (
-                <motion.nav
-                    initial={{ y: -20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.6 }}
-                    className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 transition-all duration-300 ${scrolled ? 'glass-strong shadow-lg shadow-black/30' : 'bg-transparent'
-                        }`}
-                >
-                    <div className="max-w-6xl mx-auto flex items-center justify-between">
-                        <span className="text-xl font-bold tracking-tight gradient-text">dev.</span>
-                        <div className="flex items-center gap-8">
-                            <button onClick={() => scrollTo('hero')} className="nav-link">Home</button>
-                            <button onClick={() => scrollTo('projects')} className="nav-link">Projects</button>
+            <!-- Mobile hamburger -->
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ============================================================
+    HERO SECTION
+    ============================================================ -->
+    <section id="home" class="hero">
+        <!-- Floating blobs (background decoration) -->
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+
+        <div class="container hero-grid">
+            <!-- Left content -->
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="800">
+                <p class="hero-greeting">Hello, I'm</p>
+                <h1 class="hero-name">
+                    <span id="typed-name"></span>
+                </h1>
+                <p class="hero-subtitle">
+                    B.Tech Computer Science Engineering Student<br />
+                    <span class="highlight">Frontend Developer</span> ·
+                    <span class="highlight">Python Programmer</span> ·
+                    <span class="highlight">Prompt Engineering Enthusiast</span>
+                </p>
+                <p class="hero-description">
+                    I enjoy building modern web applications, AI-powered tools, and interactive user experiences.
+                    I'm continuously learning new technologies and looking for internship opportunities to apply my skills.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        <i class="fas fa-eye"></i> View Projects
+                    </a>
+                    <a href="#" class="btn btn-outline" id="downloadResumeBtn">
+                        <i class="fas fa-download"></i> Download Resume
+                    </a>
+                    <a href="https://github.com" target="_blank" class="btn btn-icon" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="btn btn-icon" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: animated profile placeholder -->
+            <div class="hero-image" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
+                <div class="profile-placeholder">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="profile-ring"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    ABOUT ME
+    ============================================================ -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">About Me</h2>
+
+            <div class="about-grid">
+                <div class="about-illustration" data-aos="fade-right" data-aos-duration="800">
+                    <div class="illustration-box">
+                        <i class="fas fa-code"></i>
+                        <i class="fas fa-robot"></i>
+                        <i class="fas fa-laptop-code"></i>
+                        <i class="fas fa-database"></i>
+                    </div>
+                </div>
+
+                <div class="about-text" data-aos="fade-left" data-aos-duration="800">
+                    <p>
+                        I am a passionate Computer Science Engineering student who enjoys solving real-world problems
+                        through web development and programming. I love creating responsive websites, AI-powered applications,
+                        and interactive projects while constantly learning modern technologies.
+                    </p>
+                    <div class="about-stats">
+                        <div><span>7+</span> Projects</div>
+                        <div><span>1+</span> Year Code</div>
+                        <div><span>5+</span> Tech Stacks</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    SKILLS
+    ============================================================ -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Skills</h2>
+
+            <div class="skills-grid">
+
+                <!-- Programming -->
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="skill-card-inner">
+                        <i class="fas fa-terminal skill-icon"></i>
+                        <h3>Programming</h3>
+                        <div class="skill-tags">
+                            <span>C</span><span>C++</span><span>Python</span>
+                            <span>JavaScript</span><span>HTML</span><span>CSS</span>
                         </div>
                     </div>
-                </motion.nav>
-            );
-        };
+                </div>
 
-        // Hero
-        const Hero = () => {
-            return (
-                <section id="hero" className="min-h-screen flex items-center justify-center px-6 pt-20 pb-16 relative overflow-hidden bg-gradient-subtle">
-                    <div className="orb orb-1" />
-                    <div className="orb orb-2" />
-                    <div className="orb orb-3" />
-                    <div className="max-w-5xl mx-auto text-center relative z-10">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                            className="inline-block glass px-5 py-2 rounded-full text-sm font-medium text-purple-300 border border-purple-500/20 mb-6"
-                        >
-                            ✦ Open to opportunities
-                        </motion.div>
-                        <motion.h1
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.7, delay: 0.1 }}
-                            className="text-5xl sm:text-7xl md:text-8xl font-extrabold leading-[1.05] tracking-tight mb-6"
-                        >
-                            <span className="gradient-text-hero">Crafting digital</span><br />
-                            <span className="text-white">experiences</span>
-                        </motion.h1>
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                            className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-10"
-                        >
-                            Developer focused on building polished, performant web applications
-                            with modern tools and a keen eye for design.
-                        </motion.p>
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.5, delay: 0.3 }}
-                        >
-                            <a href="#projects" className="btn-gradient inline-block px-10 py-4 rounded-full text-white font-semibold text-base tracking-wide">
-                                View Projects <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">→</span>
+                <!-- Frontend -->
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="skill-card-inner">
+                        <i class="fas fa-paint-brush skill-icon"></i>
+                        <h3>Frontend</h3>
+                        <div class="skill-tags">
+                            <span>Next.js</span><span>React <small>(Basic)</small></span>
+                            <span>Tailwind CSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="skill-card-inner">
+                        <i class="fas fa-server skill-icon"></i>
+                        <h3>Backend</h3>
+                        <div class="skill-tags">
+                            <span>Supabase</span><span>Firebase <small>(Basic)</small></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools -->
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="skill-card-inner">
+                        <i class="fas fa-tools skill-icon"></i>
+                        <h3>Tools</h3>
+                        <div class="skill-tags">
+                            <span>Git</span><span>GitHub</span>
+                            <span>VS Code</span><span>Vercel</span><span>Figma</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    PROJECTS
+    ============================================================ -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Projects</h2>
+
+            <div class="projects-grid">
+
+                <!-- 1. Musicly -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="project-img">
+                        <i class="fas fa-music"></i>
+                        <span class="project-img-label">Musicly</span>
+                    </div>
+                    <div class="project-body">
+                        <h3>Musicly</h3>
+                        <p>Spotify-inspired music streaming website.</p>
+                        <div class="project-tech">
+                            <span>React</span><span>Tailwind</span><span>Spotify API</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://musicly-ruby.vercel.app" target="_blank" class="btn btn-primary btn-sm">
+                                <i class="fas fa-external-link-alt"></i> Live
                             </a>
-                        </motion.div>
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.6 }}
-                            className="mt-12 flex justify-center gap-6 text-sm text-gray-500 font-mono"
-                        >
-                            <span className="flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-green-400/60" />
-                                React · Vite
-                            </span>
-                            <span className="flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-blue-400/60" />
-                                Tailwind · Framer
-                            </span>
-                        </motion.div>
-                    </div>
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 1 }}
-                        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500 text-xs tracking-widest uppercase"
-                    >
-                        <span>Scroll</span>
-                        <svg className="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                        </svg>
-                    </motion.div>
-                </section>
-            );
-        };
-
-        // Project Card
-        const ProjectCard = ({ title, description, liveUrl, tech, index }) => {
-            return (
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-60px' }}
-                    transition={{ duration: 0.6, delay: index * 0.15 }}
-                    className="project-card glass-strong rounded-2xl p-7 md:p-9 relative overflow-hidden group"
-                >
-                    <div className="absolute inset-0 pointer-events-none rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                        style={{
-                            background: 'radial-gradient(circle at 30% 20%, rgba(124,58,237,0.12), transparent 70%)'
-                        }}
-                    />
-                    <div className="relative z-10">
-                        <div className="w-12 h-12 rounded-xl glass flex items-center justify-center text-2xl mb-5 border border-white/5">
-                            {index === 0 ? '📋' : '🧠'}
-                        </div>
-                        <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">{title}</h3>
-                        <p className="text-gray-300 text-sm leading-relaxed mb-5 max-w-md">{description}</p>
-                        <div className="flex flex-wrap gap-2 mb-6">
-                            {tech.map((t, i) => (
-                                <span key={i} className="tech-badge">{t}</span>
-                            ))}
-                        </div>
-                        <a
-                            href={liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-500 hover:to-blue-400 transition-all duration-300 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40"
-                        >
-                            Live Demo
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                            </svg>
-                        </a>
-                    </div>
-                </motion.div>
-            );
-        };
-
-        // Projects
-        const Projects = () => {
-            const projects = [
-                {
-                    title: 'Restaurant QR Menu',
-                    description: 'QR code ordering, online payment, dine-in option — a seamless digital dining experience.',
-                    liveUrl: 'https://menu-first-eight.vercel.app',
-                    tech: ['React', 'Tailwind', 'QR Code', 'Vercel']
-                },
-                {
-                    title: 'AI Notes Generator',
-                    description: 'Generate smart AI-powered study notes instantly using modern web technologies.',
-                    liveUrl: 'https://ai-notes-generator-two.vercel.app',
-                    tech: ['React', 'AI', 'Tailwind', 'Vercel']
-                }
-            ];
-            return (
-                <section id="projects" className="py-24 px-6 bg-gradient-subtle">
-                    <div className="max-w-6xl mx-auto">
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
-                            className="text-center mb-16"
-                        >
-                            <span className="inline-block text-sm font-medium text-purple-400 tracking-widest uppercase mb-3 glass px-5 py-1.5 rounded-full border border-purple-500/10">
-                                Featured Work
-                            </span>
-                            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
-                                <span className="gradient-text">Projects</span>
-                            </h2>
-                            <p className="text-gray-400 mt-3 max-w-xl mx-auto">
-                                A selection of my recent work — each built with care and modern tools.
-                            </p>
-                        </motion.div>
-                        <div className="grid md:grid-cols-2 gap-8">
-                            {projects.map((p, i) => (
-                                <ProjectCard key={i} {...p} index={i} />
-                            ))}
+                            <a href="#" target="_blank" class="btn btn-outline btn-sm">
+                                <i class="fab fa-github"></i> Code
+                            </a>
                         </div>
                     </div>
-                </section>
-            );
-        };
+                </div>
 
-        // Footer
-        const Footer = () => {
-            const year = new Date().getFullYear();
-            return (
-                <footer className="py-6 px-6 border-t border-white/5 glass">
-                    <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <span className="text-sm text-gray-400">
-                            © {year} — Built with <span className="text-purple-400">React</span> &amp; <span className="text-blue-400">Tailwind</span>
-                        </span>
-                        <div className="flex items-center gap-6 text-sm">
-                            <a href="#hero" className="text-gray-500 hover:text-white transition-colors">Home</a>
-                            <a href="#projects" className="text-gray-500 hover:text-white transition-colors">Projects</a>
+                <!-- 2. Weather Forecaster -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-img">
+                        <i class="fas fa-cloud-sun"></i>
+                        <span class="project-img-label">Weather</span>
+                    </div>
+                    <div class="project-body">
+                        <h3>Weather Forecaster</h3>
+                        <p>Real-time weather application using Weather API.</p>
+                        <div class="project-tech">
+                            <span>JavaScript</span><span>Weather API</span><span>CSS</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://weather-forecaster-12qt.vercel.app" target="_blank" class="btn btn-primary btn-sm">
+                                <i class="fas fa-external-link-alt"></i> Live
+                            </a>
+                            <a href="#" target="_blank" class="btn btn-outline btn-sm">
+                                <i class="fab fa-github"></i> Code
+                            </a>
                         </div>
                     </div>
-                </footer>
-            );
-        };
+                </div>
 
-        // ─── App ──────────────────────────────────
-        const App = () => {
-            return (
-                <>
-                    <Navigation />
-                    <main>
-                        <Hero />
-                        <Projects />
-                    </main>
-                    <Footer />
-                </>
-            );
-        };
+                <!-- 3. Flappy Birds -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="project-img">
+                        <i class="fas fa-crow"></i>
+                        <span class="project-img-label">Flappy</span>
+                    </div>
+                    <div class="project-body">
+                        <h3>Flappy Birds</h3>
+                        <p>Browser-based Flappy Bird clone.</p>
+                        <div class="project-tech">
+                            <span>JavaScript</span><span>Canvas</span><span>HTML/CSS</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://flappybirds-ten.vercel.app" target="_blank" class="btn btn-primary btn-sm">
+                                <i class="fas fa-external-link-alt"></i> Live
+                            </a>
+                            <a href="#" target="_blank" class="btn btn-outline btn-sm">
+                                <i class="fab fa-github"></i> Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
-        // ─── Mount ──────────────────────────────
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
+                <!-- 4. Calculator -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="project-img">
+                        <i class="fas fa-calculator"></i>
+                        <span class="project-img-label">Calc</span>
+                    </div>
+                    <div class="project-body">
+                        <h3>Calculator</h3>
+                        <p>Responsive calculator.</p>
+                        <div class="project-tech">
+                            <span>JavaScript</span><span>CSS Grid</span><span>HTML</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://calculator-tau-hazel.vercel.app" target="_blank" class="btn btn-primary btn-sm">
+                                <i class="fas fa-external-link-alt"></i> Live
+                            </a>
+                            <a href="#" target="_blank" class="btn btn-outline btn-sm">
+                                <i class="fab fa-github"></i> Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Cafe Online Menu -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="project-img">
+                        <i class="fas fa-utensils"></i>
+                        <span class="project-img-label">Cafe</span>
+                    </div>
+                    <div class="project-body">
+                        <h3>Cafe Online Menu</h3>
+                        <p>Restaurant website supporting QR ordering, online payment and dine-in.</p>
+                        <div class="project-tech">
+                            <span>React</span><span>Tailwind</span><span>Firebase</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://menu-first-eight.vercel.app" target="_blank" class="btn btn-primary btn-sm">
+                                <i class="fas fa-external-link-alt"></i> Live
+                            </a>
+                            <a href="#" target="_blank" class="btn btn-outline btn-sm">
+                                <i class="fab fa-github"></i> Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. AI Notes Generator -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="project-img">
+                        <i class="fas fa-brain"></i>
+                        <span class="project-img-label">AI Notes</span>
+                    </div>
+                    <div class="project-body">
+                        <h3>AI Notes Generator</h3>
+                        <p>AI-powered application for generating organized study notes instantly with a clean and responsive interface.</p>
+                        <div class="project-tech">
+                            <span>Next.js</span><span>AI API</span><span>Tailwind</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://ai-notes-generator-two.vercel.app" target="_blank" class="btn btn-primary btn-sm">
+                                <i class="fas fa-external-link-alt"></i> Live
+                            </a>
+                            <a href="#" target="_blank" class="btn btn-outline btn-sm">
+                                <i class="fab fa-github"></i> Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. StayWise (NEW) -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="project-img">
+                        <i class="fas fa-hotel"></i>
+                        <span class="project-img-label">StayWise</span>
+                    </div>
+                    <div class="project-body">
+                        <h3>StayWise</h3>
+                        <p>Smart accommodation booking and discovery platform.</p>
+                        <div class="project-tech">
+                            <span>Next.js</span><span>Tailwind</span><span>Supabase</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://staywise-sage.vercel.app" target="_blank" class="btn btn-primary btn-sm">
+                                <i class="fas fa-external-link-alt"></i> Live
+                            </a>
+                            <a href="#" target="_blank" class="btn btn-outline btn-sm">
+                                <i class="fab fa-github"></i> Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    EDUCATION
+    ============================================================ -->
+    <section id="education" class="education">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Education</h2>
+
+            <div class="timeline" data-aos="fade-up" data-aos-duration="800">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass">
+                        <h3>B.Tech Computer Science Engineering</h3>
+                        <p class="timeline-date">2025 – Present</p>
+                        <p>Currently in 2nd Year · Building strong foundations in DSA, Web Dev & AI.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    CURRENTLY LEARNING
+    ============================================================ -->
+    <section id="learning" class="learning">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Currently Learning</h2>
+
+            <div class="learning-grid">
+                <div class="learning-card" data-aos="flip-up" data-aos-delay="0">
+                    <i class="fas fa-code"></i>
+                    <span>Data Structures &amp; Algorithms</span>
+                </div>
+                <div class="learning-card" data-aos="flip-up" data-aos-delay="100">
+                    <i class="fab fa-react"></i>
+                    <span>React</span>
+                </div>
+                <div class="learning-card" data-aos="flip-up" data-aos-delay="200">
+                    <i class="fab fa-node-js"></i>
+                    <span>Next.js</span>
+                </div>
+                <div class="learning-card" data-aos="flip-up" data-aos-delay="300">
+                    <i class="fas fa-database"></i>
+                    <span>Backend Development</span>
+                </div>
+                <div class="learning-card" data-aos="flip-up" data-aos-delay="400">
+                    <i class="fas fa-robot"></i>
+                    <span>Artificial Intelligence</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    ACHIEVEMENTS
+    ============================================================ -->
+    <section id="achievements" class="achievements">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Achievements</h2>
+
+            <div class="achievements-grid">
+                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="0">
+                    <i class="fas fa-laptop-code"></i>
+                    <h4>Built 7+ Live Projects</h4>
+                    <p>Deployed and accessible online</p>
+                </div>
+                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fas fa-rocket"></i>
+                    <h4>Hosted projects on Vercel</h4>
+                    <p>Fast & reliable deployment</p>
+                </div>
+                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fab fa-python"></i>
+                    <h4>Strong Python Fundamentals</h4>
+                    <p>Scripting & automation</p>
+                </div>
+                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fas fa-layer-group"></i>
+                    <h4>Learning Full Stack Development</h4>
+                    <p>Frontend → Backend → DB</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    CONTACT
+    ============================================================ -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Get in Touch</h2>
+
+            <div class="contact-grid" data-aos="fade-up" data-aos-duration="800">
+                <a href="mailto:anuditya@example.com" class="contact-card glass">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
+                    <small>anuditya@example.com</small>
+                </a>
+                <a href="https://github.com" target="_blank" class="contact-card glass">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                    <small>github.com/anuditya</small>
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="contact-card glass">
+                    <i class="fab fa-linkedin-in"></i>
+                    <span>LinkedIn</span>
+                    <small>linkedin.com/in/anuditya</small>
+                </a>
+                <a href="#" class="contact-card glass" id="resumeDownloadContact">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Resume</span>
+                    <small>Download PDF</small>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Anuditya Gautam</p>
+            <p class="footer-heart">Made with <i class="fas fa-heart"></i> using HTML, CSS &amp; JavaScript</p>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    BACK TO TOP BUTTON
+    ============================================================ -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ============================================================
+    SCRIPTS
+    ============================================================ -->
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
 </body>
 </html>
