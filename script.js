@@ -20,7 +20,6 @@ function typeName() {
         setTimeout(typeName, 120);
     }
 }
-// Start typing after loader fades (approx 0.8s delay)
 setTimeout(typeName, 900);
 
 // ============================================================
@@ -59,7 +58,6 @@ hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('open');
 });
 
-// Close mobile menu on link click
 navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
         hamburger.classList.remove('open');
@@ -104,4 +102,17 @@ AOS.init({
     duration: 800,
     once: true,
     offset: 50,
+});
+
+// ============================================================
+// 9. RESUME DOWNLOAD (placeholder)
+// ============================================================
+document.getElementById('downloadResumeBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    alert('Resume download will be available soon. Please check back later.');
+});
+
+document.getElementById('resumeDownloadContact').addEventListener('click', (e) => {
+    e.preventDefault();
+    alert('Resume download will be available soon. Please check back later.');
 });
